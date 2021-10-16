@@ -39,24 +39,66 @@
     <button id="multiply">x</button>
   </div>
 <script>
-    const $num0 = document.querySelector('#num-0');
-    const $num1 = document.querySelector('#num-1');
-    const $num2 = document.querySelector('#num-2');
-    const $num3 = document.querySelector('#num-3');
-    const $num4 = document.querySelector('#num-4');
-    const $num5 = document.querySelector('#num-5');
-    const $num6 = document.querySelector('#num-6');
-    const $num7 = document.querySelector('#num-7');
-    const $num8 = document.querySelector('#num-8');
-    const $num9 = document.querySelector('#num-9');
-    const $plus = document.querySelector('#plus');
-    const $minus = document.querySelector('#minus');
-    const $divide = document.querySelector('#divide');
-    const $multiply = document.querySelector('#multiply');
-    const $clear = document.querySelector('#clear');
-    const $calculate = document.querySelector('#calculate');
+    const $operator = document.querySelector('#operator');
+    const $result = document.querySelector('#result');
+    let num1 = "";
+    let operator;
+    let num2 = "";
 
-    
+    const onButton = (event) => {
+        const candidate = event.target.innerHTML;
+
+        if (candidate === "C") {
+            num1 = "";
+            num2 = "";
+            operator = "";
+            $result.value = "";
+            $operator.value = candidate;
+        }
+
+        if (candidate === "=") {
+            num1 = eval(num1 + operator + num2);
+            $result.value = num1;
+            num2 = "";
+            operator = "";
+        }
+
+        if (!operator && !num2 && (parseInt(candidate) || candidate === "0")) {
+            num1 += candidate;
+            $result.value = num1;
+        }
+
+        if (num1 && !num2 && !(parseInt(candidate) || candidate === "0")) {
+            operator = candidate;
+            if (operator === "x") {
+                operator = "*";
+            }
+            $operator.value = operator;
+        }
+
+        if (num1 && operator && (parseInt(candidate) || candidate === "0")) {
+            num2 += candidate;
+            $result.value = num2;
+        }
+
+    };
+    document.querySelector('#num-1').addEventListener('click', onButton);
+    document.querySelector('#num-2').addEventListener('click', onButton);
+    document.querySelector('#num-3').addEventListener('click', onButton);
+    document.querySelector('#num-4').addEventListener('click', onButton);
+    document.querySelector('#num-5').addEventListener('click', onButton);
+    document.querySelector('#num-6').addEventListener('click', onButton);
+    document.querySelector('#num-7').addEventListener('click', onButton);
+    document.querySelector('#num-8').addEventListener('click', onButton);
+    document.querySelector('#num-9').addEventListener('click', onButton);
+    document.querySelector('#num-0').addEventListener('click', onButton);
+    document.querySelector('#plus').addEventListener('click', onButton);
+    document.querySelector('#minus').addEventListener('click', onButton);
+    document.querySelector('#divide').addEventListener('click', onButton);
+    document.querySelector('#multiply').addEventListener('click', onButton);
+    document.querySelector('#clear').addEventListener('click', onButton);
+    document.querySelector('#calculate').addEventListener('click', onButton);
+
 
 
 </script>
