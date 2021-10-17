@@ -39,65 +39,78 @@
     <button id="multiply">x</button>
   </div>
 <script>
+    let numOne = "";
+    let operator = "";
+    let numTwo = "";
     const $operator = document.querySelector('#operator');
     const $result = document.querySelector('#result');
-    let num1 = "";
-    let operator;
-    let num2 = "";
 
-    const onButton = (event) => {
-        const candidate = event.target.innerHTML;
-
-        if (candidate === "C") {
-            num1 = "";
-            num2 = "";
-            operator = "";
-            $result.value = "";
-            $operator.value = candidate;
+    const onClickNumber = (number) => (event) => {
+        if (!operator) {
+            numOne += number;
+            $result.value += number;
+            return;
         }
-
-        if (candidate === "=") {
-            num1 = eval(num1 + operator + num2);
-            $result.value = num1;
-            num2 = "";
-            operator = "";
+        if (!numTwo) {
+            $result.value = '';
         }
+        numTwo += number;
+        $result.value += number;
+    }; // 고차 함수 (high order function)
 
-        if (!operator && !num2 && (parseInt(candidate) || candidate === "0")) {
-            num1 += candidate;
-            $result.value = num1;
+    document.querySelector('#num-0').addEventListener('click', onClickNumber('0'));
+    document.querySelector('#num-1').addEventListener('click', onClickNumber('1'));
+    document.querySelector('#num-2').addEventListener('click', onClickNumber('2'));
+    document.querySelector('#num-3').addEventListener('click', onClickNumber('3'));
+    document.querySelector('#num-4').addEventListener('click', onClickNumber('4'));
+    document.querySelector('#num-5').addEventListener('click', onClickNumber('5'));
+    document.querySelector('#num-6').addEventListener('click', onClickNumber('6'));
+    document.querySelector('#num-7').addEventListener('click', onClickNumber('7'));
+    document.querySelector('#num-8').addEventListener('click', onClickNumber('8'));
+    document.querySelector('#num-9').addEventListener('click', onClickNumber('9'));
+
+    const onClickOperator = (op) => () => {
+        if (numOne) {
+            operator = op;
+            $operator.value = op;
+        } else {
+            alert('숫자를 먼저 입력하세요.');
         }
+    }
 
-        if (num1 && !num2 && !(parseInt(candidate) || candidate === "0")) {
-            operator = candidate;
-            if (operator === "x") {
-                operator = "*";
+    document.querySelector('#plus').addEventListener('click', onClickOperator('+'));
+    document.querySelector('#minus').addEventListener('click', onClickOperator('-'));
+    document.querySelector('#divide').addEventListener('click', onClickOperator('/'));
+    document.querySelector('#multiply').addEventListener('click', onClickOperator('*'));
+
+    document.querySelector('#clear').addEventListener('click', () => {
+        let numOne = "";
+        let operator = "";
+        let numTwo = "";
+        $operator.value = '';
+        $result.value = '';
+    });
+    document.querySelector('#calculate').addEventListener('click', () => {
+        if (numTwo) {
+            if (operator === "+") {
+                $result.value = parseInt(numOne) + parseInt(numTwo);
             }
-            $operator.value = operator;
-        }
 
-        if (num1 && operator && (parseInt(candidate) || candidate === "0")) {
-            num2 += candidate;
-            $result.value = num2;
-        }
+            if (operator === "-") {
+                $result.value = parseInt(numOne) - parseInt(numTwo);
+            }
 
-    };
-    document.querySelector('#num-1').addEventListener('click', onButton);
-    document.querySelector('#num-2').addEventListener('click', onButton);
-    document.querySelector('#num-3').addEventListener('click', onButton);
-    document.querySelector('#num-4').addEventListener('click', onButton);
-    document.querySelector('#num-5').addEventListener('click', onButton);
-    document.querySelector('#num-6').addEventListener('click', onButton);
-    document.querySelector('#num-7').addEventListener('click', onButton);
-    document.querySelector('#num-8').addEventListener('click', onButton);
-    document.querySelector('#num-9').addEventListener('click', onButton);
-    document.querySelector('#num-0').addEventListener('click', onButton);
-    document.querySelector('#plus').addEventListener('click', onButton);
-    document.querySelector('#minus').addEventListener('click', onButton);
-    document.querySelector('#divide').addEventListener('click', onButton);
-    document.querySelector('#multiply').addEventListener('click', onButton);
-    document.querySelector('#clear').addEventListener('click', onButton);
-    document.querySelector('#calculate').addEventListener('click', onButton);
+            if (operator === "/") {
+                $result.value = parseInt(numOne) / parseInt(numTwo);
+            }
+
+            if (operator === "*") {
+                $result.value = parseInt(numOne) * parseInt(numTwo);
+            }
+        } else {
+            alert('숫자를 먼저 입력하세요');
+        }
+    });
 
 
 
