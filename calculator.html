@@ -70,6 +70,16 @@
     document.querySelector('#num-9').addEventListener('click', onClickNumber('9'));
 
     const onClickOperator = (op) => () => {
+        if (numTwo) {
+            console.log(1);
+            opop();
+            numOne = $result.value;
+            numTwo = '';
+            operator = op;
+            $result.value = numOne;
+            $operator.value = operator;
+            return;
+        }
         if (numOne) {
             operator = op;
             $operator.value = op;
@@ -84,35 +94,39 @@
     document.querySelector('#multiply').addEventListener('click', onClickOperator('*'));
 
     document.querySelector('#clear').addEventListener('click', () => {
-        let numOne = "";
-        let operator = "";
-        let numTwo = "";
+        numOne = "";
+        operator = "";
+        numTwo = "";
         $operator.value = '';
         $result.value = '';
     });
     document.querySelector('#calculate').addEventListener('click', () => {
         if (numTwo) {
-            if (operator === "+") {
-                $result.value = parseInt(numOne) + parseInt(numTwo);
-            }
-
-            if (operator === "-") {
-                $result.value = parseInt(numOne) - parseInt(numTwo);
-            }
-
-            if (operator === "/") {
-                $result.value = parseInt(numOne) / parseInt(numTwo);
-            }
-
-            if (operator === "*") {
-                $result.value = parseInt(numOne) * parseInt(numTwo);
-            }
+            opop();
+            
         } else {
             alert('숫자를 먼저 입력하세요');
         }
     });
 
+    function opop() {
+        if (operator === "+") {
+            $result.value = parseInt(numOne) + parseInt(numTwo);
+        }
 
+        if (operator === "-") {
+            $result.value = parseInt(numOne) - parseInt(numTwo);
+        }
+
+        if (operator === "/") {
+            $result.value = parseInt(numOne) / parseInt(numTwo);
+        }
+
+        if (operator === "*") {
+            $result.value = parseInt(numOne) * parseInt(numTwo);
+        }
+        numOne = $result.value;
+    }
 
 </script>
 </body>
