@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: flex-start; /* 오뎅 꼬치 생각하고 그 축을 기준으로 정렬하는 것 left, right가 아닌 flex-start인 이유는 축 기준으로 하기 위해서 축이 columnd으로 되면 left가 bottom위치가 되기 때문에.*/
+            /* align-items: center;  콘텐츠들에게 꼬치를 꽂기*/ 
+            height: 80vh;
+            background: gray;
+        }
+
+        .item {
+            /* flex-grow: 1;  여백을 기준으로 비율을 맞추는 것 */
+            /* flex-basis: 0;  콘텐츠를 신경안쓰게함 0으로 하면*/
+            flex: 1; /* 위에 두개 축약형 */
+            padding: 2em;
+            border: 3px solid black;
+            background-color: white;
+        }
+        
+        .item:nth-child(1) {flex-grow: 1;}
+        .item:nth-child(2) {flex-grow: 5;}
+        .item:nth-child(3) {flex-grow: 2;}
+        .item:nth-child(4) {flex-grow: 3;}
+        .item:nth-child(5) {flex-grow: 4;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">AAA</div>
+        <div class="item">B</div>
+        <div class="item">CCCCCC</div>
+        <div class="item">DDD</div>
+        <div class="item">E</div>
+    </div>
+</body>
+</html>
